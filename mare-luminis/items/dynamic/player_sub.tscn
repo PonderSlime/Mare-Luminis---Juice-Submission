@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://bk8adhbnm8aoe"]
+
+[ext_resource type="Script" uid="uid://2jknv6y8h1n0" path="res://items/dynamic/scripts/player/submarine_controller.gd" id="1_l0dse"]
+[ext_resource type="Script" uid="uid://cpghwaurevqev" path="res://items/dynamic/camera_controller.gd" id="2_dh6lo"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_l0dse"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_l0dse"]
+size = Vector3(0.4, 0.4, 0.5)
+
+[node name="Sub" type="CharacterBody3D"]
+script = ExtResource("1_l0dse")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_l0dse")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0.468192, 0.412499)
+mesh = SubResource("BoxMesh_l0dse")
+
+[node name="CameraBoomOrigin" type="Node3D" parent="." node_paths=PackedStringArray("player")]
+top_level = true
+script = ExtResource("2_dh6lo")
+player = NodePath("..")
+
+[node name="BoomYOrigin" type="Node3D" parent="CameraBoomOrigin"]
+
+[node name="BoomOrigin" type="Node3D" parent="CameraBoomOrigin/BoomYOrigin"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="CameraBoom" type="SpringArm3D" parent="CameraBoomOrigin/BoomYOrigin/BoomOrigin"]
+spring_length = 15.0
+
+[node name="Camera3D" type="Camera3D" parent="CameraBoomOrigin/BoomYOrigin/BoomOrigin/CameraBoom"]

@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlqkmm5y31vu5"]
+
+[ext_resource type="PackedScene" uid="uid://bk8adhbnm8aoe" path="res://items/dynamic/player_sub.tscn" id="1_wen4y"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_w8un3"]
+size = Vector2(200, 200)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wen4y"]
+
+[sub_resource type="Sky" id="Sky_w8un3"]
+sky_material = SubResource("ProceduralSkyMaterial_wen4y")
+
+[sub_resource type="Environment" id="Environment_0d6la"]
+background_mode = 2
+sky = SubResource("Sky_w8un3")
+
+[node name="Test" type="Node3D"]
+
+[node name="Sub" parent="." instance=ExtResource("1_wen4y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.434497, 2.56639, -0.964036)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_w8un3")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0d6la")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.638835, 0.769344, 0, -0.769344, 0.638835, 0, 3.34013, 0)

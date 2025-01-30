@@ -1,0 +1,72 @@
+extends CharacterBody3D
+
+@export var speed = 5.
+@export var acceleration = 3.
+@export var rotation_speed = 20
+@export var buoyancy_force = 5.
+@export var bobbing_amplitude = 1.5
+@export var bobbing_speed = 1.0
+@export var water_drag = 0.1
+@export var rotation_smoothness = 5.
+
+var velocity_vector: Vector3 = Vector3.ZERO
+var rotation_target: Vector3 = Vector3.ZERO
+
+var base_height = 0.
+var time_elapsed = 0.
+
+func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+func _process(delta: float) -> void:
+	handle_movement(delta)
+	handle_rotation(delta)
+	apply_buoyancy(delta)
+	
+		
+func handle_movement(delta):
+	var input_dir = Vector3.ZERO
+	
+	if Input.is_action_pressed("move_forward"):
+		input_dir += transform.basis.z
+	if Input.is_action_pressed("move_backward"):
+		input_dir -= transform.basis.z
+	if Input.is_action_pressed("move_up"):
+		input_dir += transform.basis.y
+	if Input.is_action_pressed("move_down"):
+		input_dir -= transform.basis.y
+
+	if input_dir != Vector3.ZERO:
+		velocity_vector = velocity_vector.lerp(input_dir.normalized() * speed, acceleration * delta)
+	else:
+		velocity_vector = velocity_vector.lerp(Vector3.ZERO, acceleration * delta)
+		
+	velocity = velocity_vector
+	move_and_slide()
+
+func handle_rotation(delta):
+	var rot_x = 0.0
+	var rot_y = 0.0
+	
+	if Input.is_action_pressed("turn_left"):
+		rot_y += 1
+	if Input.is_action_pressed("turn_right"):
+		rot_y -= 1
+		
+	if rot_y != 0:
+		rotation_target.y += rot_y * rotation_speed * delta
+		
+	rotation.y = lerp_angle(rotation.y, deg_to_rad(rotation_target.y), delta * rotation_smoothness)
+	if rot_y == 0:
+		rotation_target.y = rad_to_deg(rotation.y)
+	
+func apply_buoyancy(delta):
+	time_elapsed += delta
+	
+	var bobbing_offset = sin(time_elapsed + bobbing_speed) * bobbing_amplitude
+	
+	var target_y = base_height + bobbing_offset
+	var buoyancy = (base_height + bobbing_offset) - global_transform.origin.y
+	
+	velocity.y += bobbing_offset * delta * buoyancy_force
+	
+	move_and_slide() 

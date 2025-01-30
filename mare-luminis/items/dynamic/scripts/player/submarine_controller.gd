@@ -8,6 +8,7 @@ extends CharacterBody3D
 @export var bobbing_speed = 1.0
 @export var water_drag = 0.1
 @export var rotation_smoothness = 5.
+@export var camera_boom_origin: Node3D
 
 var velocity_vector: Vector3 = Vector3.ZERO
 var rotation_target: Vector3 = Vector3.ZERO
@@ -37,8 +38,10 @@ func handle_movement(delta):
 
 	if input_dir != Vector3.ZERO:
 		velocity_vector = velocity_vector.lerp(input_dir.normalized() * speed, acceleration * delta)
+		camera_boom_origin.update_fov(77)
 	else:
 		velocity_vector = velocity_vector.lerp(Vector3.ZERO, acceleration * delta)
+		camera_boom_origin.update_fov(75)
 		
 	velocity = velocity_vector
 	move_and_slide()

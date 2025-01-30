@@ -1,9 +1,8 @@
 extends Node3D
 
-@onready var spring_arm: SpringArm3D = $BoomYOrigin/BoomOrigin/CameraBoom
-@onready var boom_origin: Node3D = $BoomYOrigin/BoomOrigin
-@onready var boom_y_origin: Node3D = $BoomYOrigin
-@onready var camera: Camera3D = $BoomYOrigin/BoomOrigin/CameraBoom/Camera3D
+@onready var spring_arm: SpringArm3D = $BoomOrigin/CameraBoom
+@onready var boom_origin: Node3D = $BoomOrigin
+@onready var camera: Camera3D = $BoomOrigin/CameraBoom/Camera3D
 @export var player: CharacterBody3D
 @export var camera_sensitivity = 0.15
 @export var zoom_speed = 2.0
@@ -21,6 +20,11 @@ var time_since_last_camera_move = 0.0
 var camera_angle = Vector2.ZERO
 var target_spring_length = 5.
 
+
+func update_fov(new_fov):
+	var tween = create_tween()
+	tween.tween_property(camera, "fov", new_fov, 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	
 func _process(delta: float) -> void:
 	update_spring_arm(delta)
 	update_camera_lag(delta)
@@ -59,7 +63,9 @@ func update_spring_arm(delta):
 
 func update_camera_lag(delta):
 	global_position = global_position.lerp(player.global_position, delta * (camera_lag_strength * 4))
-	global_rotation = global_rotation.lerp(player.global_rotation, delta)
+	global_rotation.x = lerp_angle(global_rotation.x, player.global_rotation.x, delta)
+	global_rotation.y = lerp_angle(global_rotation.y, player.global_rotation.y, delta)
+	global_rotation.z = lerp_angle(global_rotation.z, player.global_rotation.z, delta)
 	
 func reset_camera_to_back(delta):
 	var target_camera_angle = deg_to_rad(boom_origin.rotation_degrees.y + 180)
@@ -69,7 +75,6 @@ func reset_camera_to_back(delta):
 		normalized_angle = 0.0
 	
 	spring_arm.rotation.y = lerp_angle_shortest(normalized_angle, target_camera_angle, delta * camera_reset_smoothness)
-	print(spring_arm.rotation_degrees.y)
 
 func lerp_angle_shortest(from, to, weight):
 	return from + short_angle_dist(from, to) * weight

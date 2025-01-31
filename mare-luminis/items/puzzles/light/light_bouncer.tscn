@@ -17,4 +17,3 @@ mesh = SubResource("BoxMesh_gxpob")
 shape = SubResource("BoxShape3D_5yrc4")
 
 [node name="VisibleBeamParent" type="Node3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)

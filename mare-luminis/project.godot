@@ -47,6 +47,11 @@ move_down={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="Basic Collisions"
+3d_physics/layer_3="Light-Based Raycasts"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

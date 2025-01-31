@@ -7,6 +7,8 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_h8qea"]
 
 [node name="LightEmitter" type="StaticBody3D"]
+collision_layer = 5
+collision_mask = 5
 script = ExtResource("1_h8qea")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -14,3 +16,5 @@ mesh = SubResource("BoxMesh_sbl0e")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_h8qea")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]

@@ -30,8 +30,11 @@ func cast_light():
 		if hit_object.has_method("receive_light"):
 			print("Light received by: ", hit_object.name)
 			hit_object.receive_light()
-		elif hit_object.has_method("bounce_light"):
-			
+		elif hit_object.has_method("update_bounce_vars"):
+			var normal = raycast.get_collision_normal()
+			var point = raycast.get_collision_point()
+			hit_object.update_bounce_vars(normal, point, raycast, true)
+
 		else:
 			print("colliding, no function?!")
 	update_beam_visual()

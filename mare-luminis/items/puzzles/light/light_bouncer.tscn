@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3ujtex6a3x4x"]
+
+[ext_resource type="Script" uid="uid://dovhcovic0brh" path="res://items/puzzles/light/scripts/light_bouncer.gd" id="1_5yrc4"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_gxpob"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5yrc4"]
+
+[node name="LightBouncer" type="StaticBody3D" node_paths=PackedStringArray("visible_beam_parent")]
+script = ExtResource("1_5yrc4")
+visible_beam_parent = NodePath("VisibleBeamParent")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_gxpob")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_5yrc4")
+
+[node name="VisibleBeamParent" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)

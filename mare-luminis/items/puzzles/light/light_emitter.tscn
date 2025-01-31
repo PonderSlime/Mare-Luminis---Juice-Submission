@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckos5xuiks11x"]
+
+[ext_resource type="Script" uid="uid://csbwpjknsouar" path="res://items/puzzles/light/scripts/light_emitter.gd" id="1_h8qea"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_sbl0e"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h8qea"]
+
+[node name="LightEmitter" type="StaticBody3D"]
+script = ExtResource("1_h8qea")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_sbl0e")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_h8qea")

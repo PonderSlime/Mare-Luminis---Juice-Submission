@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dlqkmm5y31vu5"]
+[gd_scene load_steps=8 format=3 uid="uid://dlqkmm5y31vu5"]
 
 [ext_resource type="PackedScene" uid="uid://bk8adhbnm8aoe" path="res://items/dynamic/player_sub.tscn" id="1_wen4y"]
+[ext_resource type="PackedScene" uid="uid://ckos5xuiks11x" path="res://items/puzzles/light/light_emitter.tscn" id="2_0d6la"]
+[ext_resource type="PackedScene" uid="uid://bripu0nib0xbf" path="res://items/puzzles/light/light_receiver.tscn" id="3_di7wo"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_w8un3"]
 size = Vector2(200, 200)
@@ -27,3 +29,13 @@ environment = SubResource("Environment_0d6la")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.638835, 0.769344, 0, -0.769344, 0.638835, 0, 3.34013, 0)
+
+[node name="LightEmitter" parent="." instance=ExtResource("2_0d6la")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.051, 15.253)
+max_distance = null
+light_color = null
+beam_width = null
+active = null
+
+[node name="LightReceiver" parent="." instance=ExtResource("3_di7wo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.051, 6.27431)

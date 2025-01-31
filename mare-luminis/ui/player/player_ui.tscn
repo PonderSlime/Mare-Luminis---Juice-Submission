@@ -19,8 +19,8 @@ offset_bottom = 40.0
 
 [node name="CompassTexture" type="TextureRect" parent="Compass"]
 layout_mode = 0
-offset_right = 233.0
-offset_bottom = 171.0
+offset_right = 200.0
+offset_bottom = 135.0
 texture = ExtResource("2_g5tbx")
 expand_mode = 2
 stretch_mode = 4

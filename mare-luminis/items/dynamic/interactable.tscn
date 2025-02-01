@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnjjffgtkembo"]
+
+[ext_resource type="Script" uid="uid://d4bwl0eh07yet" path="res://items/dynamic/scripts/interactable.gd" id="1_dc2ox"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dc2ox"]
+
+[node name="InteractableObject" type="Area3D" groups=["interactables"]]
+script = ExtResource("1_dc2ox")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_dc2ox")
+
+[node name="UI_Prompt" type="Label3D" parent="."]
+pixel_size = 0.01
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

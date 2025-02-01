@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://2jknv6y8h1n0" path="res://items/dynamic/scripts/player/submarine_controller.gd" id="1_l0dse"]
 [ext_resource type="PackedScene" uid="uid://5mphgjfp2sd5" path="res://ui/player/player_ui.tscn" id="2_5ipf0"]
-[ext_resource type="Script" uid="uid://cpghwaurevqev" path="res://items/dynamic/scripts/camera_controller.gd" id="2_dh6lo"]
+[ext_resource type="Script" uid="uid://cpghwaurevqev" path="res://items/dynamic/scripts/player/camera_controller.gd" id="2_dh6lo"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_l0dse"]
 
@@ -11,7 +11,7 @@ size = Vector3(0.4, 0.4, 0.5)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dh6lo"]
 
-[node name="Sub" type="CharacterBody3D" node_paths=PackedStringArray("camera_boom_origin")]
+[node name="Sub" type="CharacterBody3D" node_paths=PackedStringArray("camera_boom_origin") groups=["player"]]
 script = ExtResource("1_l0dse")
 camera_boom_origin = NodePath("CameraBoomOrigin")
 

@@ -5,6 +5,7 @@ extends Node3D
 @export var beam_width = 0.1
 @export var visible_beam_parent: Node3D
 @export var active = false
+@export var rotation_duration: float = 0.3
 
 var normal
 var point
@@ -41,7 +42,6 @@ func _process(delta: float) -> void:
 	else:
 		raycast.enabled = active
 		beam_mesh.visible = active
-	rotation_degrees.y += 0.05
 		
 func update_bounce_vars(normal_update, point_update, ray_update, is_active):
 	normal = normal_update
@@ -105,3 +105,7 @@ func create_beam_mesh():
 	mesh.material = StandardMaterial3D.new()
 	mesh.material.albedo_color = light_color
 	return mesh
+
+func interact():
+	var tween = create_tween()
+	tween.tween_property(self, "global_rotation_degrees:y", global_rotation_degrees.y + 10, rotation_duration).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)

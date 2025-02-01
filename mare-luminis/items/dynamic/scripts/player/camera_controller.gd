@@ -4,11 +4,11 @@ extends Node3D
 @onready var boom_origin: Node3D = $BoomOrigin
 @onready var camera: Camera3D = $BoomOrigin/CameraBoom/Camera3D
 @export var player: CharacterBody3D
-@export var camera_sensitivity = 0.15
+@export var camera_sensitivity = 0.05
 @export var zoom_speed = 2.0
 @export var min_zoom = 2.0
-@export var max_zoom = 10.0
-@export var zoom_smoothing = 200.0
+@export var max_zoom = 6.0
+@export var zoom_smoothing = 250.0
 @export var camera_lag_strength = 6.
 @export var camera_tilt_strength = 5.
 @export var camera_reset_time = 3.
@@ -18,7 +18,7 @@ var camera_free_look = false
 var time_since_last_camera_move = 0.0
 
 var camera_angle = Vector2.ZERO
-var target_spring_length = 5.
+var target_spring_length = 4.
 
 
 func update_fov(new_fov):
@@ -44,7 +44,7 @@ func handle_camera(mouse_delta: Vector2):
 	camera_angle.y = rad_to_deg(spring_arm.rotation.y)
 	camera_angle.x = rad_to_deg(spring_arm.rotation.x)
 		
-	camera_angle.x = clamp(camera_angle.x - mouse_delta.y * camera_sensitivity, -45, 45)
+	camera_angle.x = clamp(camera_angle.x - mouse_delta.y * camera_sensitivity, -65, 45)
 	camera_angle.y -= mouse_delta.x * camera_sensitivity
 	
 	spring_arm.rotation_degrees.x = camera_angle.x

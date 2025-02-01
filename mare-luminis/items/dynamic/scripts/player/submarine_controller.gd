@@ -1,13 +1,13 @@
 extends CharacterBody3D
 
-@export var speed = 5.
-@export var acceleration = 3.
+@export var speed = 2.
+@export var acceleration = 5.
 @export var rotation_speed = 20
 @export var buoyancy_force = 5.
 @export var bobbing_amplitude = 1.5
 @export var bobbing_speed = 1.0
 @export var water_drag = 0.1
-@export var rotation_smoothness = 5.
+@export var rotation_smoothness = 10.
 @export var camera_boom_origin: Node3D
 
 var velocity_vector: Vector3 = Vector3.ZERO
@@ -22,8 +22,14 @@ func _process(delta: float) -> void:
 	handle_movement(delta)
 	handle_rotation(delta)
 	apply_buoyancy(delta)
-	
-		
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("interact"):
+		var interactables = get_tree().get_nodes_in_group("interactables")
+		for obj in interactables:
+			if obj.player_in_range:
+				obj.interact()
+
 func handle_movement(delta):
 	var input_dir = Vector3.ZERO
 	
@@ -51,9 +57,9 @@ func handle_rotation(delta):
 	var rot_y = 0.0
 	
 	if Input.is_action_pressed("turn_left"):
-		rot_y += 1
+		rot_y += 2
 	if Input.is_action_pressed("turn_right"):
-		rot_y -= 1
+		rot_y -= 2
 		
 	if rot_y != 0:
 		rotation_target.y += rot_y * rotation_speed * delta

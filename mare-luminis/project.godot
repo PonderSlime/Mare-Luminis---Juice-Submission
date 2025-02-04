@@ -14,6 +14,10 @@ config/name="Mare Luminis"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+PlayerCore="*res://core/scripts/player_core.gd"
+
 [global_group]
 
 player=""

@@ -19,9 +19,13 @@ var time_elapsed = 0.
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 func _process(delta: float) -> void:
+	
 	handle_movement(delta)
 	handle_rotation(delta)
 	apply_buoyancy(delta)
+	
+func _physics_process(delta: float) -> void:
+	PlayerCore.current_depth = -global_transform.origin.y
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):

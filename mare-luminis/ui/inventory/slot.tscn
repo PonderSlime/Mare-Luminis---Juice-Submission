@@ -5,6 +5,8 @@
 
 [node name="Slot" type="TextureRect"]
 texture_filter = 1
+offset_right = 16.0
+offset_bottom = 16.0
 texture = ExtResource("1_m57sd")
 script = ExtResource("2_fl40y")
 

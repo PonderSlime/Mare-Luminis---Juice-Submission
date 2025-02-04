@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 PlayerCore="*res://core/scripts/player_core.gd"
+DataHandler="*res://ui/inventory/scripts/DataHandler.gd"
 
 [global_group]
 

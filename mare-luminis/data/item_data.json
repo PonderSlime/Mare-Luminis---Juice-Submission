@@ -1,0 +1,6 @@
+{
+	"0": { "Name": "Item0", "Value": 10, "Grid": "0,0/0,1/-1,0"},
+	"1": { "Name": "Item1", "Value": 20, "Grid": "0,0/0,1"}, 
+	"2": { "Name": "Item2", "Value": 30, "Grid": "0,0/1,0"}, 
+	"3": { "Name": "Item3", "Value": 40, "Grid": "0,0"}, 
+}

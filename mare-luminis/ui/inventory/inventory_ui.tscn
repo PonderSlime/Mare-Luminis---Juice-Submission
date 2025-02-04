@@ -33,9 +33,10 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="BG/MarginContainer/VBoxContainer/Header"]
+[node name="SpawnerButton" type="Button" parent="BG/MarginContainer/VBoxContainer/Header"]
 layout_mode = 2
-text = "header"
+text = "Button (remove as soon as
+ inventory system completed!)"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="BG/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -44,3 +45,5 @@ size_flags_vertical = 3
 [node name="GridContainer" type="GridContainer" parent="BG/MarginContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
 columns = 6
+
+[connection signal="pressed" from="BG/MarginContainer/VBoxContainer/Header/SpawnerButton" to="." method="_on_spawner_button_pressed"]

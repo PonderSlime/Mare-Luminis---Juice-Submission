@@ -42,14 +42,15 @@ func _on_slot_mouse_entered(what_slot):
 		set_grids.call_deferred(current_slot)
 
 func _on_slot_mouse_exited(what_slot):
+	current_slot = null
 	clear_grid()
 
 func _on_spawner_button_pressed() -> void:
 	var new_item = item_scene.instantiate()
 	get_tree().root.add_child(new_item)
-	new_item.load_item(0)
-	new_item.selected = true
 	PlayerCore.item_held = new_item
+	PlayerCore.item_held.load_item(0)
+	PlayerCore.item_held.selected = true
 
 func check_slot_availability(slot) -> void:
 	for grid in PlayerCore.item_held.item_grids:
@@ -93,9 +94,8 @@ func set_grids(slot) -> void:
 func clear_grid():
 	for grid in grid_array:
 		grid.set_color(grid.States.DEFAULT)
-		
 func rotate_item():
-	PlayerCore.item_held.rotate_item()
+	await get_tree().create_timer(0.01).timeout
 	clear_grid()
 	if current_slot:
 		_on_slot_mouse_entered(current_slot)

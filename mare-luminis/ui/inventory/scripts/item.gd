@@ -12,6 +12,8 @@ func _process(delta: float) -> void:
 		global_position = lerp(global_position, get_global_mouse_position(), 25 * delta)
 	if PlayerCore.item_held == self:
 		global_position = get_global_mouse_position()
+		if Input.is_action_just_pressed("rotate_item"):
+			rotate_item()
 
 func load_item(what_item_ID : int) -> void:
 	var Icon_path = "res://ui/inventory/assets/items/" + DataHandler.item_data[str(what_item_ID)]["Name"] + ".png"
@@ -31,7 +33,7 @@ func rotate_item():
 		tween.tween_property(self, "rotation_degrees", rotation_degrees + 90, 0.1).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 		print(rotation_degrees)
 		if rotation_degrees >= 360:
-			rotation_degrees = lerp(self, rotation_degrees, 0)
+			rotation_degrees = 0
 	
 
 func _snap_to(destination: Vector2):

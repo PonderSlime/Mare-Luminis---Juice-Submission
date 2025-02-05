@@ -9,6 +9,7 @@ extends Node
 var current_depth: float = 0.0
 var taking_damage: bool = false
 var warning: bool = false
+var item_held = null
 
 func _process(delta: float) -> void:
 	check_depth_pressure(delta)

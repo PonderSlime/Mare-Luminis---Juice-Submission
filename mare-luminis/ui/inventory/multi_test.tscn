@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://df1vp4an8nvok"]
+
+[ext_resource type="PackedScene" uid="uid://b8qrru7kh7ies" path="res://ui/inventory/inventory_ui.tscn" id="1_t3660"]
+
+[node name="MultiTest" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="InventoryUI" parent="." instance=ExtResource("1_t3660")]
+layout_mode = 1
+
+[node name="InventoryUI2" parent="." instance=ExtResource("1_t3660")]
+layout_mode = 1
+offset_left = 679.0
+offset_top = 25.0
+offset_right = 679.0
+offset_bottom = 25.0

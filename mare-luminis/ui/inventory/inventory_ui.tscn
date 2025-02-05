@@ -44,6 +44,8 @@ size_flags_vertical = 3
 
 [node name="GridContainer" type="GridContainer" parent="BG/MarginContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
 columns = 6
 
 [connection signal="pressed" from="BG/MarginContainer/VBoxContainer/Header/SpawnerButton" to="." method="_on_spawner_button_pressed"]

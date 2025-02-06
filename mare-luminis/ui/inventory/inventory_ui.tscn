@@ -46,6 +46,6 @@ size_flags_vertical = 3
 layout_mode = 2
 theme_override_constants/h_separation = 1
 theme_override_constants/v_separation = 1
-columns = 6
+columns = 8
 
 [connection signal="pressed" from="BG/MarginContainer/VBoxContainer/Header/SpawnerButton" to="." method="_on_spawner_button_pressed"]

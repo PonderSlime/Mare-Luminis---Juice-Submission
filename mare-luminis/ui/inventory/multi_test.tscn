@@ -15,3 +15,5 @@ offset_left = 679.0
 offset_top = 25.0
 offset_right = 679.0
 offset_bottom = 25.0
+blocked_grids_resource = "res://data/inventory/player_inventory.json"
+grid_count = 48

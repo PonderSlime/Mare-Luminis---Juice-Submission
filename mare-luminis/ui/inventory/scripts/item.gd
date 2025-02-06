@@ -31,7 +31,6 @@ func rotate_item():
 		grid[0] = -temp_x
 		var tween = create_tween()
 		tween.tween_property(self, "rotation_degrees", rotation_degrees + 90, 0.1).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
-		print(rotation_degrees)
 		if rotation_degrees >= 360:
 			rotation_degrees = 0
 	

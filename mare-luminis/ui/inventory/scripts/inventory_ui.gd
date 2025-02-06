@@ -4,7 +4,10 @@ extends Control
 @onready var grid_container = $BG/MarginContainer/VBoxContainer/ScrollContainer/GridContainer
 @onready var item_scene = preload("res://ui/inventory/item.tscn")
 @onready var scroll_container = $BG/MarginContainer/VBoxContainer/ScrollContainer
-@onready var col_count = grid_container.columns
+@export var blocked_grids_resource: String = ""
+@export var col_count = 6
+@export var grid_count = 100
+var blocked_grids = []
 
 var grid_array := []
 var current_slot = null
@@ -12,8 +15,13 @@ var can_place := false
 var icon_anchor : Vector2
 
 func _ready() -> void:
-	for i in range(922):
-		create_slot()
+	grid_container.columns = col_count
+	load_blocked_grids(blocked_grids_resource)
+		
+	for i in range(grid_count):
+		var y = i % col_count
+		var x = i / col_count
+		create_slot(i, x, y)
 
 func _input(event: InputEvent) -> void:
 	if PlayerCore.item_held:
@@ -26,9 +34,23 @@ func _input(event: InputEvent) -> void:
 		if Input.is_action_just_pressed("left_click"):
 			if scroll_container.get_global_rect().has_point(get_global_mouse_position()):
 				pick_item()
-func create_slot():
+				
+func load_blocked_grids(path: String):
+	var file = FileAccess.open(path, FileAccess.READ)
+	if file:
+		var json_text = file.get_as_text()
+		var json = JSON.parse_string(json_text)
+		if json and "blocked_positions" in json:
+			for pos in json["blocked_positions"]:
+				blocked_grids.append(Vector2i(pos[0], pos[1]))
+func create_slot(index: int, x: int, y: int) -> void:
 	var new_slot = slot_scene.instantiate()
 	new_slot.slot_ID = grid_array.size()
+
+	var grid_position = Vector2i(x, y)
+	
+	if blocked_grids.has(grid_position):
+		new_slot.texture = preload("res://ui/inventory/assets/slot_blank.png")  
 	grid_array.push_back(new_slot)
 	grid_container.add_child(new_slot)
 	new_slot.slot_entered.connect(_on_slot_mouse_entered)
@@ -64,7 +86,12 @@ func check_slot_availability(slot) -> void:
 		if grid_to_check < 0 or grid_to_check >= grid_array.size():
 			can_place = false
 			return
-			
+		
+		var grid_position = Vector2i(slot.slot_ID % col_count + grid[0], slot.slot_ID / col_count + grid[1])
+		if blocked_grids.has(grid_position):
+			can_place = false
+			return
+		
 		if grid_array[grid_to_check].state == grid_array[grid_to_check].States.TAKEN:
 			can_place = false
 			return
@@ -80,7 +107,11 @@ func set_grids(slot) -> void:
 		if line_switch_check < 0 or line_switch_check >= col_count:
 			continue
 		
-		if grid_to_check < 0 or grid_to_check >= grid_array.size():
+		var grid_position = Vector2i(slot.slot_ID % col_count + grid[0], slot.slot_ID / col_count + grid[1])
+		if blocked_grids.has(grid_position):
+			grid_array[grid_to_check].set_color(grid_array[grid_to_check].States.TAKEN)
+			
+		elif grid_to_check < 0 or grid_to_check >= grid_array.size():
 			continue
 			
 		if can_place:

@@ -11,8 +11,11 @@ extends CanvasLayer
 @export var damage_pulse_intensity = 2.0
 @export var damage_pulse_speed = 4.0
 
+@onready var inventory_ui = $InventoryUI
+
 var pulse_intensity
 var pulse_speed
+var inventory_open: bool = false
 
 func _ready() -> void:
 	compass.pivot_offset = compass.size / 2
@@ -37,6 +40,20 @@ func _process(delta: float) -> void:
 		hide_warning_effects()
 		
 	$Label.text = "Depth: " + str(PlayerCore.current_depth)
+	
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("open_inventory"):
+		toggle_inventory()
+		
+func toggle_inventory():
+	if inventory_open:
+		var tween = create_tween()
+		tween.tween_property(inventory_ui, "anchor_left", 1, 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+		inventory_open = false
+	elif !inventory_open:	
+		var tween = create_tween()
+		tween.tween_property(inventory_ui, "anchor_left", 0.66, 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+		inventory_open = true
 func update_compass():
 	if compass:
 		compass.rotation_degrees = camera_boom.global_rotation_degrees.y + 180

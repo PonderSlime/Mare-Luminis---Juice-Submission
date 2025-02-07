@@ -20,7 +20,6 @@ var time_since_last_camera_move = 0.0
 var camera_angle = Vector2.ZERO
 var target_spring_length = 4.
 
-
 func update_fov(new_fov):
 	var tween = create_tween()
 	tween.tween_property(camera, "fov", new_fov, 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
@@ -35,7 +34,7 @@ func _process(delta: float) -> void:
 			reset_camera_to_back(delta)
 
 func _input(event):
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion && !PlayerCore.is_in_menu:
 		handle_camera(event.relative)
 		camera_free_look = true
 		time_since_last_camera_move = 0.0

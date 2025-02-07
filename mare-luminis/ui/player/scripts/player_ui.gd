@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 @onready var compass = $Compass/CompassTexture
 @onready var warning_elem = $Warning
 @onready var warning_elem_mat = $Warning.material
@@ -44,16 +44,25 @@ func _process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("open_inventory"):
 		toggle_inventory()
-		
+	if event is InputEventMouseButton and event.pressed:
+		print("Mouse click detected at: ", event.position)
+func _unhandled_input(event):
+	if event is InputEventMouseButton or event is InputEventMouseMotion:
+		get_viewport().set_input_as_handled()
+
 func toggle_inventory():
-	if inventory_open:
+	if inventory_open && PlayerCore.is_in_menu:
 		var tween = create_tween()
 		tween.tween_property(inventory_ui, "anchor_left", 1, 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 		inventory_open = false
-	elif !inventory_open:	
+		PlayerCore.is_in_menu = true
+		
+	elif !inventory_open && !PlayerCore.is_in_menu:
 		var tween = create_tween()
 		tween.tween_property(inventory_ui, "anchor_left", 0.66, 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 		inventory_open = true
+		PlayerCore.is_in_menu = true
+		
 func update_compass():
 	if compass:
 		compass.rotation_degrees = camera_boom.global_rotation_degrees.y + 180

@@ -33,7 +33,6 @@ func rotate_item():
 		tween.tween_property(self, "rotation_degrees", rotation_degrees + 90, 0.1).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 		if rotation_degrees >= 360:
 			rotation_degrees = 0
-	
 
 func _snap_to(destination: Vector2):
 	var tween = create_tween()

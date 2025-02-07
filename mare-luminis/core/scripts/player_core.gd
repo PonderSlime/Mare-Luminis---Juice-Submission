@@ -11,8 +11,15 @@ var taking_damage: bool = false
 var warning: bool = false
 var item_held = null
 
+var is_in_menu: bool = false
+
 func _process(delta: float) -> void:
 	check_depth_pressure(delta)
+	
+	if !is_in_menu:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	elif is_in_menu:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 func check_depth_pressure(delta):
 	if current_depth > max_safe_depth:

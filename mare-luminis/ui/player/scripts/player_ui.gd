@@ -17,6 +17,9 @@ var pulse_intensity
 var pulse_speed
 var inventory_open: bool = false
 
+var min_pressure_angle = 75
+var max_pressure_angle = -75
+
 func _ready() -> void:
 	compass.pivot_offset = compass.size / 2
 	
@@ -39,13 +42,16 @@ func _process(delta: float) -> void:
 	else:
 		hide_warning_effects()
 		
-	$Label.text = "Depth: " + str(PlayerCore.current_depth)
+	$DepthLabel.text = "Depth: " + str(PlayerCore.current_depth)
+	$PressureLabel.text = "Pressure: " + str(PlayerCore.pressure)
 	
+	var pressure_guage_percent = PlayerCore.pressure / PlayerCore.max_safe_pressure
+	var range = min_pressure_angle - max_pressure_angle
+	$Pressure.rotation_degrees = clamp(-pressure_guage_percent * range, max_pressure_angle - 75, min_pressure_angle)
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("open_inventory"):
-		toggle_inventory()
-	if event is InputEventMouseButton and event.pressed:
-		print("Mouse click detected at: ", event.position)
+		#toggle_inventory()
+		pass
 func _unhandled_input(event):
 	if event is InputEventMouseButton or event is InputEventMouseMotion:
 		get_viewport().set_input_as_handled()

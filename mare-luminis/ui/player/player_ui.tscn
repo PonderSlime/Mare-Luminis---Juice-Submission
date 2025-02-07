@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://5mphgjfp2sd5"]
+[gd_scene load_steps=5 format=3 uid="uid://5mphgjfp2sd5"]
 
 [ext_resource type="Script" uid="uid://b7sd1njp646m7" path="res://ui/player/scripts/player_ui.gd" id="1_g5tbx"]
-[ext_resource type="PackedScene" uid="uid://b8qrru7kh7ies" path="res://ui/inventory/inventory_ui.tscn" id="2_7n80m"]
-[ext_resource type="Texture2D" uid="uid://460jyuaihecr" path="res://ui/player/assets/compass.png" id="2_g5tbx"]
+[ext_resource type="Texture2D" uid="uid://qqo3xs0efgdg" path="res://ui/player/assets/Compass_temp.png" id="2_g5tbx"]
 [ext_resource type="Shader" uid="uid://cyvsv3ur35liu" path="res://ui/player/shaders/chromatic_abberations.gdshader" id="3_g5tbx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g5tbx"]
@@ -21,11 +20,40 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_g5tbx")
 
-[node name="InventoryUI" parent="." instance=ExtResource("2_7n80m")]
+[node name="Pressure" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.66
-col_count = 14
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+
+[node name="Control" type="Control" parent="Pressure"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 4.45059
+
+[node name="PressureTexture" type="TextureRect" parent="Pressure/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.0
+offset_top = -135.0
+offset_right = 135.0
+offset_bottom = 135.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_g5tbx")
+expand_mode = 2
+stretch_mode = 4
 
 [node name="Compass" type="Control" parent="."]
 layout_mode = 3
@@ -35,7 +63,7 @@ offset_bottom = 40.0
 
 [node name="CompassTexture" type="TextureRect" parent="Compass"]
 layout_mode = 0
-offset_right = 200.0
+offset_right = 135.0
 offset_bottom = 135.0
 texture = ExtResource("2_g5tbx")
 expand_mode = 2
@@ -52,8 +80,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_right = 40.0
+[node name="PressureLabel" type="Label" parent="."]
+offset_right = 52.0
 offset_bottom = 23.0
+text = "Atmosphereic Pressure:"
+
+[node name="DepthLabel" type="Label" parent="."]
+layout_mode = 0
+offset_top = 23.0
+offset_right = 52.0
+offset_bottom = 46.0
 text = "Depth:"

@@ -25,7 +25,8 @@ func _process(delta: float) -> void:
 	apply_buoyancy(delta)
 	
 func _physics_process(delta: float) -> void:
-	PlayerCore.current_depth = -global_transform.origin.y
+	PlayerCore.current_depth = snapped(-global_transform.origin.y, 0.1)
+	
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):

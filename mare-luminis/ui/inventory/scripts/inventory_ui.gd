@@ -211,7 +211,7 @@ func load_inventory():
 	
 	for item_data in json["items"]:
 		var new_item = item_scene.instantiate()
-		add_child(new_item)
+		grid_container.add_child(new_item)
 		new_item.position = Vector2.ZERO
 		
 		new_item.load_item(item_data["item_ID"])
@@ -252,8 +252,6 @@ func load_inventory():
 				grid_array[grid_index].state = grid_array[grid_index].States.TAKEN
 				grid_array[grid_index].item_stored = new_item
 		
-		remove_child(new_item)
-		grid_container.add_child(new_item)
 		PlayerCore.item_held = null
 	
 		clear_grid()

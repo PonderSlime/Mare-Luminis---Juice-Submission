@@ -10,20 +10,42 @@ extends CharacterBody3D
 @export var rotation_smoothness = 10.
 @export var camera_boom_origin: Node3D
 
+@export var tilt_amplitude := 5.0
+@export var tilt_speed := 1.0
+
 var velocity_vector: Vector3 = Vector3.ZERO
 var rotation_target: Vector3 = Vector3.ZERO
 
 var base_height = 0.
 var time_elapsed = 0.
+var time := 0.0
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	PlayerCore.player = self
 func _process(delta: float) -> void:
+	time += delta * tilt_speed
+	var tilt_angle = sin(time) * tilt_amplitude
+	var new_rotation: Vector3
+	new_rotation.x = rotation_degrees.x
+	new_rotation.z = rotation_degrees.z
 	
 	handle_movement(delta)
 	handle_rotation(delta)
 	apply_buoyancy(delta)
+	
+	if global_position.y > -3:
+		new_rotation.x = tilt_angle
+		new_rotation.z = tilt_angle
+		var tween = create_tween()
+		tween.tween_property(self, "rotation_degrees:x", new_rotation.x, 2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		tween.tween_property(self, "rotation_degrees:z", new_rotation.z, 2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		
+	else:
+		var tween = create_tween()
+		tween.tween_property(self, "rotation_degrees:x", 0.0, 2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		tween.tween_property(self, "rotation_degrees:z", 0.0, 2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		
 	
 func _physics_process(delta: float) -> void:
 	PlayerCore.current_depth = snapped(-global_transform.origin.y, 0.1)
@@ -58,6 +80,7 @@ func handle_movement(delta):
 	velocity = velocity_vector
 	move_and_slide()
 	global_position.y = clamp(global_position.y, -INF, PlayerCore.ocean_height - 0.3)
+	
 func handle_rotation(delta):
 	var rot_x = 0.0
 	var rot_y = 0.0

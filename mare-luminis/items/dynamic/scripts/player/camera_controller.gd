@@ -74,9 +74,9 @@ func update_spring_arm(delta):
 
 func update_camera_lag(delta):
 	global_position = global_position.lerp(player.global_position, delta * (camera_lag_strength * 4))
-	global_rotation.x = lerp_angle(global_rotation.x, player.global_rotation.x, delta)
+	#global_rotation.x = lerp_angle(global_rotation.x, player.global_rotation.x, delta)
 	global_rotation.y = lerp_angle(global_rotation.y, player.global_rotation.y, delta)
-	global_rotation.z = lerp_angle(global_rotation.z, player.global_rotation.z, delta)
+	#global_rotation.z = lerp_angle(global_rotation.z, player.global_rotation.z, delta)
 	
 func reset_camera_to_back(delta):
 	var target_camera_angle = deg_to_rad(boom_origin.rotation_degrees.y + 180)

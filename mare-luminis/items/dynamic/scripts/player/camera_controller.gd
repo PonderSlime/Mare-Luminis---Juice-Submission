@@ -3,6 +3,8 @@ extends Node3D
 @onready var spring_arm: SpringArm3D = $BoomOrigin/CameraBoom
 @onready var boom_origin: Node3D = $BoomOrigin
 @onready var camera: Camera3D = $BoomOrigin/CameraBoom/Camera3D
+@onready var water_plane = preload("res://environment/water/WaterPlane.tscn")
+
 @export var player: CharacterBody3D
 @export var camera_sensitivity = 0.05
 @export var zoom_speed = 2.0
@@ -16,9 +18,13 @@ extends Node3D
 
 var camera_free_look = false
 var time_since_last_camera_move = 0.0
+var ocean_mat 
 
 var camera_angle = Vector2.ZERO
 var target_spring_length = 4.
+
+func _ready() -> void:
+	PlayerCore.camera = $BoomOrigin/CameraBoom/Camera3D
 
 func update_fov(new_fov):
 	var tween = create_tween()
@@ -32,7 +38,13 @@ func _process(delta: float) -> void:
 		time_since_last_camera_move += delta
 		if time_since_last_camera_move >= camera_reset_time:
 			reset_camera_to_back(delta)
-
+	
+	var camera_pos = get_viewport().get_camera_3d().global_position.y	
+	if camera_pos < PlayerCore.ocean_height - 0.5:
+		PlayerCore.enable_underwater_effects(true)
+	else:
+		PlayerCore.enable_underwater_effects(false)
+	
 func _input(event):
 	if event is InputEventMouseMotion && !PlayerCore.is_in_menu:
 		handle_camera(event.relative)

@@ -15,6 +15,13 @@ var item_held = null
 
 var is_in_menu: bool = false
 
+var player: Node3D = null
+var ocean: Node3D = null
+var ocean_height: float = 0.0
+var camera: Node3D = null
+
+var is_cam_underwater: bool = false
+var darkness_rate = 26
 
 func _process(delta: float) -> void:
 	check_depth_pressure(delta)
@@ -26,6 +33,8 @@ func _process(delta: float) -> void:
 	
 func _physics_process(delta: float) -> void:
 	pressure = snapped(current_depth, 10.06) / 10.06
+	ocean.position.x = player.position.x
+	ocean.position.z = player.position.z
 	
 func check_depth_pressure(delta):
 	if pressure >  max_safe_pressure:
@@ -41,3 +50,6 @@ func check_depth_pressure(delta):
 func apply_depth_damage(delta):
 	var damage = (pressure - max_safe_pressure) * depth_damage_rate * delta
 	print("Taking depth damage:", damage)
+
+func enable_underwater_effects(value: bool):
+	is_cam_underwater = value

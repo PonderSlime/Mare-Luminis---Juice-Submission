@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bq3wvpma1ify3"]
+
+[ext_resource type="Script" uid="uid://bpam6am0maq0q" path="res://environment/world_env.gd" id="1_cnc5j"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vf7pm"]
+
+[sub_resource type="Sky" id="Sky_w8un3"]
+sky_material = SubResource("ProceduralSkyMaterial_vf7pm")
+
+[sub_resource type="Environment" id="Environment_cnc5j"]
+background_mode = 2
+sky = SubResource("Sky_w8un3")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ssao_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.0862745, 0.662745, 0.733333, 1)
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.2131
+volumetric_fog_albedo = Color(0.0862745, 0.662745, 0.733333, 1)
+
+[node name="WorldEnv" type="Node3D"]
+script = ExtResource("1_cnc5j")
+
+[node name="Env" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cnc5j")

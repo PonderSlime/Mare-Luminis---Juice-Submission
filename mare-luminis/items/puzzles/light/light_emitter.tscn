@@ -16,5 +16,3 @@ mesh = SubResource("BoxMesh_sbl0e")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_h8qea")
-
-[node name="RayCast3D" type="RayCast3D" parent="."]

@@ -81,6 +81,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="PressureLabel" type="Label" parent="."]
+layout_mode = 0
 offset_right = 52.0
 offset_bottom = 23.0
 text = "Atmosphereic Pressure:"

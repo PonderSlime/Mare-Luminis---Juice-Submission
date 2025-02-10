@@ -18,6 +18,7 @@ var time_elapsed = 0.
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	PlayerCore.player = self
 func _process(delta: float) -> void:
 	
 	handle_movement(delta)
@@ -56,7 +57,7 @@ func handle_movement(delta):
 		
 	velocity = velocity_vector
 	move_and_slide()
-
+	global_position.y = clamp(global_position.y, -INF, PlayerCore.ocean_height - 0.3)
 func handle_rotation(delta):
 	var rot_x = 0.0
 	var rot_y = 0.0
